@@ -1,0 +1,15 @@
+package rules;
+
+import model.Coupon;
+import model.Order;
+import model.Customer;
+
+
+rule "Create Coupons for Silver Customers"
+    when
+        $o: Order( $customer: customer )
+        $c: Customer(this == $customer, category == Category.SILVER )
+    then
+        insert(new Coupon($c, $o, Coupon.CouponType.POINTS));        
+end 
+
